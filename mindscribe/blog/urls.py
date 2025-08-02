@@ -1,5 +1,7 @@
-from django.urls import path
+from django.urls import path, include
+from django.conf import settings
 from . import views
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('', views.blog_list, name='blog_list'),
@@ -8,4 +10,5 @@ urlpatterns = [
     path('delete/<int:blog_id>/', views.blog_delete, name='blog_delete'),
     
     path('register/', views.register, name='register'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

@@ -5,9 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 
 
-def index(request):
-    return render(request, 'index.html')
-
 
 def blog_list(request):
     blogs = Blog.objects.all().order_by('-created_at')

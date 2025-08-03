@@ -28,7 +28,7 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-success me-2" type="submit">Search</button>
                 </form>
                 
                 {% if user.is_authenticated %}
@@ -37,8 +37,8 @@
                     <button type="submit" class="btn btn-danger">Logout</button>
                 </form>   
                 {% else %}
-                <a href="{% url 'register' %}" class="btn btn-primary mx-2">Register</a>
-                <a href="{% url 'login' %}" class="btn btn-success mx-2">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-primary me-2">Register</a>
+                <a href="{% url 'login' %}" class="btn btn-success">Login</a>
                 {% endif %}
             </div>
         </div>

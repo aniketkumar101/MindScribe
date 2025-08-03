@@ -5,9 +5,11 @@ MindScribe - Blog
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center mt-4">Welcome Blogs</h1>
 
-<a class="btn btn-primary mb-4" href="{% url 'blog_create' %}">Create New Blog</a>
+<div class="d-flex justify-content-center">
+    <a class="btn btn-primary mt-4 mb-4" href="{% url 'blog_create' %}">Create New Blog</a>
+</div>
+
 
 <div class = "container row gap-3">
     {% for blog in blogs %}

@@ -5,13 +5,12 @@ MindScribe - Blog
 {% endblock %}
 
 {% block content %}
-<h1 class="text-center mt-4">Welcome Blogs</h1>
 
 <h2>
     {%if form.instance.pk %}
-    Edit Blog
+    <h1 class="text-center mt-4">Edit Blog</h1>
     {% else %}
-    Create Blog
+    <h1 class="text-center mt-4">Create Blog</h1>
     {% endif %}
     <form method="post" enctype="multipart/form-data" class="form">
         {% csrf_token %}

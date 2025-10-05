@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mc0nk#l%c2ylmc_8g8x$1w%mpgve1o0!rn@-jhr3r4f1u@qkmj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['mindscribe-1.onrender.com', 'localhost']
 

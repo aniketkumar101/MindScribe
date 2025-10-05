@@ -3,7 +3,7 @@ services:
     name: mindscribe
     env: python
     buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn myproject.wsgi --chdir mindscribe"
+    startCommand: "gunicorn mindscribe.wsgi"
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: myproject.settings

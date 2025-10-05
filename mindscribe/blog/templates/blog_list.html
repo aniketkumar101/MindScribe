@@ -17,6 +17,7 @@ MindScribe - Blog
         {% comment %} <img src="{{blog.photo.url}}" class="card-img-top" alt="..."> {% endcomment %}
         <div class="card-body">
         <h5 class="card-title text-center">{{blog.user.username}}</h5>
+        <hr>
         <p class="card-text">{{blog.text}}</p>
         {% if blog.user == user %}
         <a href="{% url 'blog_edit' blog.id%}" class="btn btn-primary">Edit</a>

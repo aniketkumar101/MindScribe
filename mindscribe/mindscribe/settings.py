@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-mc0nk#l%c2ylmc_8g8x$1w%mpgve1o0!rn@-jhr3r4f1u@qkmj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mindscribe-1.onrender.com', 'localhost']
+ALLOWED_HOSTS = ['mindscribe-1.onrender.com', 'localhost', '127.0.0.1:8000', '127.0.0.1']
 
 
 # Application definition

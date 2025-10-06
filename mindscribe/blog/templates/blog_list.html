@@ -10,21 +10,57 @@ MindScribe - Blog
     <a class="btn btn-primary mt-4 mb-4" href="{% url 'blog_create' %}">Create New Blog</a>
 </div>
 
-
-<div class = "container row gap-3">
-    {% for blog in blogs %}
+<div class="container row gap-3">
+    {% for blog in page_obj %}
     <div class="card" style="width: 18rem;">
-        {% comment %} <img src="{{blog.photo.url}}" class="card-img-top" alt="..."> {% endcomment %}
         <div class="card-body">
-        <h5 class="card-title text-center">{{blog.user.username}}</h5>
-        <hr>
-        <p class="card-text">{{blog.text}}</p>
-        {% if blog.user == user %}
-        <a href="{% url 'blog_edit' blog.id%}" class="btn btn-primary">Edit</a>
-        <a href="{% url 'blog_delete' blog.id%}" class="btn btn-danger">Delete</a>
-        {% endif %}
+            <h5 class="card-title text-center">{{ blog.user.username }}</h5>
+            <hr>
+            <p class="card-text">{{ blog.text }}</p>
+            {% if blog.user == user %}
+            <a href="{% url 'blog_edit' blog.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
 </div>
+
+<!-- Pagination Links -->
+<nav aria-label="Page navigation" class="mt-4">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active">
+                    <span class="page-link">{{ num }}</span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
+
 {% endblock %}

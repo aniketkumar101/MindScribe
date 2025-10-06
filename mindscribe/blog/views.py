@@ -3,12 +3,20 @@ from .forms import BlogForm, UserRegistrationForm
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+from django.core.paginator import Paginator
 
 
 
 def blog_list(request):
     blogs = Blog.objects.all().order_by('-created_at')
-    return render(request, 'blog_list.html', {'blogs': blogs})  
+    # return render(request, 'blog_list.html', {'blogs': blogs})  
+
+    # Pagination: 12 blogs per page
+    paginator = Paginator(blogs, 12)
+    page_number = request.GET.get('page')  # get the page number from URL
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'blog_list.html', {'page_obj': page_obj})
 
 
 

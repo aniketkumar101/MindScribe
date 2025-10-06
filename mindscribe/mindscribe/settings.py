@@ -82,10 +82,33 @@ WSGI_APPLICATION = 'mindscribe.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+# # sqlite database --------------
+# DATABASES = {
+#     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+# }
+
+# # postgres database --------------
+DATABASES = { 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mindscribe', 
+        'USER': 'postgres',
+        'PASSWORD': 'Postgres',
+        'HOST': '127.0.0.1',
+        'PORT':'5432',
+    }
 }
 
+
+# When deployed on Render — override with DATABASE_URL
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES['default'] = dj_database_url.config(
+        default=DATABASE_URL,
+        conn_max_age=600,   # keep connection alive for better performance
+        ssl_require=True    # Render PostgreSQL requires SSL
+    )
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

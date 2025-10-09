@@ -83,21 +83,21 @@ WSGI_APPLICATION = 'mindscribe.wsgi.application'
 # }
 
 # # sqlite database --------------
-# DATABASES = {
-#     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
-# }
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
+}
 
 # # postgres database --------------
-DATABASES = { 
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mindscribe', 
-        'USER': 'postgres',
-        'PASSWORD': 'Postgres',
-        'HOST': '127.0.0.1',
-        'PORT':'5432',
-    }
-}
+# DATABASES = { 
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mindscribe', 
+#         'USER': 'postgres',
+#         'PASSWORD': 'Postgres',
+#         'HOST': '127.0.0.1',
+#         'PORT':'5432',
+#     }
+# }
 
 
 # When deployed on Render — override with DATABASE_URL

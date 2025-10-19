@@ -1,1 +1,1 @@
-web: gunicorn mindcribe.wsgi
+web: gunicorn mindscribe.wsgi:application

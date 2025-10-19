@@ -2,10 +2,13 @@ services:
   - type: web
     name: mindscribe
     env: python
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn mindscribe.wsgi"
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py migrate --noinput
+      python manage.py collectstatic --noinput
+    startCommand: "gunicorn mindscribe.wsgi:application"
     envVars:
       - key: DJANGO_SETTINGS_MODULE
-        value: myproject.settings
+        value: mindscribe.settings
       - key: PYTHON_VERSION
         value: 3.12.5

@@ -22,13 +22,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-mc0nk#l%c2ylmc_8g8x$1w%mpgve1o0!rn@-jhr3r4f1u@qkmj'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-mc0nk#l%c2ylmc_8g8x$1w%mpgve1o0!rn@-jhr3r4f1u@qkmj')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['mindscribe-1.onrender.com', 'localhost', '127.0.0.1:8000', '127.0.0.1']
+# Hosts and CSRF
+_default_allowed = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = [h.strip() for h in os.getenv('ALLOWED_HOSTS', ','.join(_default_allowed)).split(',') if h.strip()]
 
+# If a specific external hostname is provided by Render, trust it for CSRF
+_csrf_env = os.getenv('CSRF_TRUSTED_ORIGINS')
+if _csrf_env:
+    CSRF_TRUSTED_ORIGINS = [o.strip() for o in _csrf_env.split(',') if o.strip()]
+else:
+    CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+
+# When running behind a proxy (e.g., Render), honor X-Forwarded-Proto for SSL
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Application definition
 
@@ -44,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -75,30 +87,10 @@ WSGI_APPLICATION = 'mindscribe.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-# # sqlite database --------------
+# Default to SQLite locally; override via DATABASE_URL for Postgres on Render
 DATABASES = {
     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 }
-
-# # postgres database --------------
-# DATABASES = { 
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mindscribe', 
-#         'USER': 'postgres',
-#         'PASSWORD': 'Postgres',
-#         'HOST': '127.0.0.1',
-#         'PORT':'5432',
-#     }
-# }
-
 
 # When deployed on Render — override with DATABASE_URL
 DATABASE_URL = os.getenv('DATABASE_URL')
@@ -144,23 +136,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
+# User uploads
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Static assets
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-
 LOGIN_URL = '/accounts/login/'
-
-
-
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'

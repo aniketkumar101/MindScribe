@@ -75,6 +75,7 @@ WSGI_APPLICATION = 'mindscribe.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# sqlite database --------------
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -82,22 +83,22 @@ WSGI_APPLICATION = 'mindscribe.wsgi.application'
 #     }
 # }
 
-# # sqlite database --------------
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3')
-}
-
-# # postgres database --------------
-# DATABASES = { 
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mindscribe', 
-#         'USER': 'postgres',
-#         'PASSWORD': 'Postgres',
-#         'HOST': '127.0.0.1',
-#         'PORT':'5432',
-#     }
+# sqlite database deployment --------------
+# DATABASES = {
+#     'default': dj_database_url.config(default='sqlite:///db.sqlite3')
 # }
+
+# postgres database --------------
+DATABASES = { 
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mindscribe', 
+        'USER': 'postgres',
+        'PASSWORD': 'Postgres',
+        'HOST': '127.0.0.1',
+        'PORT':'5432',
+    }
+}
 
 
 # When deployed on Render — override with DATABASE_URL
@@ -164,3 +165,6 @@ LOGIN_URL = '/accounts/login/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# For serving static files on Render
+MIDDLEWARE.insert(1, 'whitenoise.middleware.WhiteNoiseMiddleware')

@@ -18,9 +18,12 @@ MindScribe - Blog
             <hr>
             <p class="card-text">{{ blog.text }}</p>
             {% if blog.user == user %}
-            <a href="{% url 'blog_edit' blog.id %}" class="btn btn-primary">Edit</a>
-            <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
+            <div class="d-flex justify-content-between">
+                <a href="{% url 'blog_edit' blog.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'blog_delete' blog.id %}" class="btn btn-danger">Delete</a>
+            </div>
             {% endif %}
+
         </div>
     </div>
     {% endfor %}

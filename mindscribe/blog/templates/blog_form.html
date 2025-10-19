@@ -4,7 +4,7 @@
 MindScribe - Blog
 {% endblock %}
 
-{% block content %}
+{% comment %} {% block content %}
 
 <h2>
     {%if form.instance.pk %}
@@ -21,4 +21,26 @@ MindScribe - Blog
 </h2>
 
 
+{% endblock %} {% endcomment %}
+
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card shadow-lg p-5 mx-auto" style="max-width: 700px;">
+    {% if form.instance.pk %}
+      <h2 class="text-center text-warning mb-4">✏️ Edit Blog</h2>
+    {% else %}
+      <h2 class="text-center text-primary mb-4">📝 Create New Blog</h2>
+    {% endif %}
+    
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'blog_list' %}" class="btn btn-secondary">Back to Blogs</a>
+        <button class="btn btn-warning px-4" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

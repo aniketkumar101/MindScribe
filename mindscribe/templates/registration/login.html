@@ -4,18 +4,6 @@
 MindScribe - Blog
 {% endblock %}
 
-{% comment %} {% block content %}
-
-<h2>Login Form</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
-<p>Don't have an account? <a href="{% url 'register' %}">Register Here</a></p>
-
-{% endblock %} {% endcomment %}
-
 
 {% block content %}
 <div class="container mt-5 d-flex justify-content-center">

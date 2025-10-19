@@ -4,19 +4,6 @@
 MindScribe - Blog
 {% endblock %}
 
-{% comment %} {% block content %}
-<h1 class="text-center mt-4">Are you sure that you want to delete the blog?</h1>
-
-<form method="post" class="form">
-    {% csrf_token %}
-    <div class="d-flex justify-content-center">
-        <button class="btn btn-danger me-2" type="submit">Confirm Delete</button>
-        <a class="btn btn-success" href="{% url 'blog_list' %}">Cancel</a>
-    </div>
-
-</form>
-{% endblock %} {% endcomment %}
-
 
 {% block content %}
 <div class="container mt-5 d-flex justify-content-center">

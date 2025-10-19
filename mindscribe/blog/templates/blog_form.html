@@ -4,25 +4,6 @@
 MindScribe - Blog
 {% endblock %}
 
-{% comment %} {% block content %}
-
-<h2>
-    {%if form.instance.pk %}
-    <h1 class="text-center mt-4">Edit Blog</h1>
-    {% else %}
-    <h1 class="text-center mt-4">Create Blog</h1>
-    {% endif %}
-    <form method="post" enctype="multipart/form-data" class="form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-warning" type="submit">Submit</button>
-    </form>
-    <a href="{% url 'blog_list' %}" class="btn btn-secondary mt-3">Back to Blog List</a>
-</h2>
-
-
-{% endblock %} {% endcomment %}
-
 
 {% block content %}
 <div class="container mt-5">

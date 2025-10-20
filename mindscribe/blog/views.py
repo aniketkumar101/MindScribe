@@ -19,6 +19,11 @@ def blog_list(request):
     return render(request, 'blog_list.html', {'page_obj': page_obj})
 
 
+def blog_detail(request, blog_id):
+    blog = get_object_or_404(Blog, pk=blog_id)
+    return render(request, 'blog_detail.html', {'blog': blog})
+
+
 
 @login_required
 def blog_create(request):
